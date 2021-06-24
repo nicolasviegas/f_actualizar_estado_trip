@@ -74,26 +74,26 @@ t_list *la_lista_que_quiero(char estado){
 char *f_actualizar_estado_tripulante(uint32_t id_tripulante_buscado, char nuevo_estado){
 
 
-    t_tripulante *tripulante_buscado =  malloc(sizeof(t_tripulante));
+    t_tripulante *tripulante_buscado; //=  malloc(sizeof(t_tripulante));
     tripulante_buscado = buscar_tripulante(id_tripulante_buscado);
     printf("%s","id del tripulante buscado -> ");
     printf("%d\n",tripulante_buscado->id_tripulante);
     if(tripulante_buscado != NULL){
 
         char estadoAnt = tripulante_buscado->estadoTripulante;
-        printf("%s\n","antes de asignar el nuevo estado");
+        //printf("%s\n","antes de asignar el nuevo estado");
         tripulante_buscado->estadoTripulante = nuevo_estado;
-        printf("%s\n","despues de asignar el nuevo estado");
+       // printf("%s\n","despues de asignar el nuevo estado");
         t_list* listaAnt = list_create();
         listaAnt = la_lista_que_quiero(estadoAnt);
-        printf("%s\n","consegui la lista que quiero");
+        //printf("%s\n","consegui la lista que quiero");
         t_list* listaEnLaQueAgrego = list_create();
         listaEnLaQueAgrego = la_lista_que_quiero(nuevo_estado);
-        printf("%s\n","consegui la lista en la que agrego");
+        //printf("%s\n","consegui la lista en la que agrego");
         list_add(listaEnLaQueAgrego,tripulante_buscado);
-        printf("%s\n","agregue en la lista");
+       // printf("%s\n","agregue en la lista");
         list_remove(listaAnt,encontrar_index_en_lista(listaAnt,id_tripulante_buscado));
-        printf("Se actualizo el estado del tripulante\n");
+        //printf("Se actualizo el estado del tripulante\n");
         return nuevo_estado;
     }
     else{
@@ -104,10 +104,9 @@ char *f_actualizar_estado_tripulante(uint32_t id_tripulante_buscado, char nuevo_
 
 int main()
 {
-
-	tripulantes_totales = list_create();
-	tripulantes_new = list_create();
-	tripulantes_ready = list_create();
+    tripulantes_totales = list_create();
+    tripulantes_new = list_create();
+    tripulantes_ready = list_create();
     t_tripulante* tripAux;
     t_tripulante* tripAux3;
     tripAux = malloc(sizeof(t_tripulante));
@@ -119,24 +118,22 @@ int main()
     t_tripulante* tripAux2 = malloc(sizeof(t_tripulante));
     list_add(tripulantes_totales,tripAux);
     list_add(tripulantes_totales,tripAux3);
-    //list_add(tripulantes_totales,tripAux2);
     list_add(tripulantes_new,tripAux);
-    		//char x = tripAux2->estadoTripulante;
-    		//printf("%s","estado del trip2 antes de asignarse -> ");
-    		// printf("%s\n", x);
-    		// int index1 = encontrar_index_en_lista(tripulantes_totales,12);
-			//printf("%s\n","antes de buscar tripulante");
+    list_add(tripulantes_new,tripAux3);
     tripAux2 = buscar_tripulante(12);
     printf("%s\n","despues de buscar tripulante");
-
-    char a = tripAux2->estadoTripulante;
-    printf("%s","estado del trip2 antes de actualizar -> ");
+    char a = tripAux->estadoTripulante;
+    printf("%s","estado del trip antes de actualizar -> ");
     printf("%c\n", a);
-    f_actualizar_estado_tripulante(1,'r');
-    char x = tripAux2->estadoTripulante;
-    printf("%s","estado del trip2 despues  de actualizar -> ");
-    printf("%c", x);
+    f_actualizar_estado_tripulante(1,'r'); // no actializa el estado
+    char x = tripAux->estadoTripulante;
+    printf("%s","estado del trip despues  de actualizar -> ");
+    printf("%c\n", x);
+    t_tripulante* tripAux21 = malloc(sizeof(t_tripulante));
+    tripAux21 = list_get(tripulantes_new,0);
+    printf("%s","deberia devolver el id 12 -> ");
+    printf("%d", tripAux21 -> id_tripulante);
+
 
     return 0 ;
 }
-
